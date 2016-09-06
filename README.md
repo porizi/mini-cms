@@ -28,6 +28,15 @@ webpack --config ./webpack/release.js
 NODE_ENV=production node build/server.js
 ```
 
+## Creating the first version of CMS data:
+  - You will need to create the first CMS data version or you would otherwise get an error while trying to initialize the application.
+    - Log in into the ``mongodb`` console
+    - Select correct database
+    - Run:
+``` bash
+db.cms_data.save({"published": true,"home": {"bio":"example bio"},"event": {"title": "super event","location": "earth"}})
+```
+
 ## TypeScript definitions are handled using the [typings](https://github.com/typings/typings) library:
 
 ### Searching:
