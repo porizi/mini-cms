@@ -57,8 +57,7 @@ export class CMSEditableForm extends React.Component<ICMSEditableFormProps, ICMS
 
   context: ICmsContext;
 
-  static contextTypes: React.ValidationMap<any> = {
-    cmsData: React.PropTypes.object.isRequired,
+  static contextTypes: React.ValidationMap<ICmsContext> = {
     onCmsDataUpdate: React.PropTypes.func.isRequired,
     isInEditMode: React.PropTypes.bool.isRequired
   }

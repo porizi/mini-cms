@@ -6,7 +6,7 @@ export class CMSNavBar extends React.Component<any, any> {
 
   context: ICmsContext;
 
-  static contextTypes: React.ValidationMap<any> = {
+  static contextTypes: React.ValidationMap<ICmsContext> = {
     isInEditMode: React.PropTypes.bool.isRequired
   }
 
