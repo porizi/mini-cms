@@ -10,8 +10,7 @@ export class App extends React.Component<any,any> {
   context: IAppContext;
 
   static contextTypes: React.ValidationMap<IAppContext> = {
-    cmsData: React.PropTypes.object.isRequired,
-    isInEditMode   : React.PropTypes.bool.isRequired
+    cmsData: React.PropTypes.object.isRequired
   }
 
   // Encapsulate CMS context as props for all children

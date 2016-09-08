@@ -7,15 +7,16 @@ export class CMSNavBar extends React.Component<any, any> {
   context: ICmsContext;
 
   static contextTypes: React.ValidationMap<ICmsContext> = {
-    isUserAuthorized: React.PropTypes.bool.isRequired,
-    isInEditMode: React.PropTypes.bool.isRequired,
-    isInViewMode: React.PropTypes.bool.isRequired,
-    onPublishChanges: React.PropTypes.func.isRequired,
-    onTogglePreviewMode : React.PropTypes.func.isRequired
+    isUserAuthorized   : React.PropTypes.bool.isRequired,
+    isInEditMode       : React.PropTypes.bool.isRequired,
+    isInViewMode       : React.PropTypes.bool.isRequired,
+    onPublishChanges   : React.PropTypes.func.isRequired,
+    onTogglePreviewMode: React.PropTypes.func.isRequired
   }
 
   private renderCMSNavBar(): JSX.Element {
-    if(this.context.isUserAuthorized) {
+    const {isUserAuthorized, onPublishChanges} = this.context;
+    if(isUserAuthorized) {
       return(
         <nav className="navbar navbar-default">
           <div className="container-fluid">
@@ -23,7 +24,7 @@ export class CMSNavBar extends React.Component<any, any> {
               <li>{this.renderPreviewModeButton()}</li>
               <li>{this.renderEditModelButton()}</li>
               <li>
-                 <button onClick={this.context.onPublishChanges}
+                 <button onClick={onPublishChanges}
                          className="btn btn-success navbar-btn">
                       Publish changes
                  </button>
@@ -36,9 +37,10 @@ export class CMSNavBar extends React.Component<any, any> {
   }
 
   private renderPreviewModeButton(): JSX.Element {
-    if(this.context.isInEditMode) {
+    const {isInEditMode, onTogglePreviewMode} = this.context;
+    if(isInEditMode) {
       return(
-        <button onClick={() => { this.context.onTogglePreviewMode(false) }}
+        <button onClick={() => { onTogglePreviewMode(false) }}
                className="btn btn-primary navbar-btn">
             Preview mode
         </button>
@@ -47,9 +49,10 @@ export class CMSNavBar extends React.Component<any, any> {
   }
 
   private renderEditModelButton(): JSX.Element {
-    if(this.context.isInViewMode) {
+    const {isInViewMode, onTogglePreviewMode} = this.context;
+    if(isInViewMode) {
       return(
-        <button onClick={() => { this.context.onTogglePreviewMode(true) }}
+        <button onClick={() => { onTogglePreviewMode(true) }}
                className="btn btn-primary navbar-btn">
             Edit mode
         </button>
