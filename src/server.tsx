@@ -65,7 +65,7 @@ app.get('*', (req: any, res: any) => {
         // Respond with EJS template
         res.render('index', {
           renderedRoot: ReactDOMServer.renderToString(
-            <CMSProvider cmsData={cmsData} isInEditMode={isUserAuthorized()}>
+            <CMSProvider cmsData={cmsData} isUserAuthorized={isUserAuthorized()}>
               <RouterContext {...props}/>
             </CMSProvider>
           ),

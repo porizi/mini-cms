@@ -1,5 +1,5 @@
 import 'whatwg-fetch';
-import {IRequestResponseStatus} from './models';
+import {IRequestResponseStatus, IRequestResponse} from './models';
 
 /**
  * Send a request to the server in order to update the draft
@@ -7,7 +7,7 @@ import {IRequestResponseStatus} from './models';
  * @param updatedData - Data to update in the draft CMS data document
  * @param path - Path where the data should be updated
  */
-export function updateDraftCmsData(updatedData: any, path: string[]): Promise<any> {
+export function updateDraftCmsData(updatedData: any, path: string[]): Promise<IRequestResponse> {
     return fetch('/api/admin/update_draft_cms_data', {
       method : 'POST',
       body   : JSON.stringify({
@@ -26,7 +26,7 @@ export function updateDraftCmsData(updatedData: any, path: string[]): Promise<an
 
 // Send a request to the server to publish the current
 // draft CMS data document
-export function publishDraftCmsData(): Promise<any> {
+export function publishDraftCmsData(): Promise<IRequestResponse> {
     return fetch('/api/admin/publish_draft_cms_data', {
         method : 'GET',
         headers: {

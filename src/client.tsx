@@ -12,7 +12,7 @@ window['MINI_CMS_APP'] = window['MINI_CMS_APP'] || (() => {
   return {
     initialize: (config) => {
       ReactDOM.render(
-        <CMSProvider cmsData={config.cmsData} isInEditMode={isUserAuthorized()}>
+        <CMSProvider cmsData={config.cmsData} isUserAuthorized={isUserAuthorized()}>
           <Router history={browserHistory}>
             { routes }
           </Router>

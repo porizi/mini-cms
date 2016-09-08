@@ -58,8 +58,9 @@ export class CMSEditableForm extends React.Component<ICMSEditableFormProps, ICMS
   context: ICmsContext;
 
   static contextTypes: React.ValidationMap<ICmsContext> = {
-    onCmsDataUpdate: React.PropTypes.func.isRequired,
-    isInEditMode: React.PropTypes.bool.isRequired
+    isUserAuthorized: React.PropTypes.bool.isRequired,
+    isInEditMode   : React.PropTypes.bool.isRequired,
+    onCmsDataUpdate: React.PropTypes.func.isRequired
   }
 
   public constructor(props: ICMSEditableFormProps, context?: any) {
@@ -72,14 +73,13 @@ export class CMSEditableForm extends React.Component<ICMSEditableFormProps, ICMS
   }
 
   private handleSubmit(data: IChangeEvent): void {
-    if(this.context.isInEditMode) {
-      this.context.onCmsDataUpdate(data.formData, this.props.path);
-      this.toggleShowCMSEditableForm();
-    }
+    this.context.onCmsDataUpdate(data.formData, this.props.path);
+    this.toggleShowCMSEditableForm();
   }
 
   private renderEditButton(): JSX.Element {
-    if(this.context.isInEditMode) {
+    const {isUserAuthorized, isInEditMode} = this.context;
+    if(isUserAuthorized && isInEditMode) {
       return(
         <div className="pr-cms-editable-form__edit-btn-wrapper">
           <button className="btn pr-cms-editable-form__edit-btn" onClick={this.toggleShowCMSEditableForm}>
@@ -91,7 +91,8 @@ export class CMSEditableForm extends React.Component<ICMSEditableFormProps, ICMS
   }
 
   private renderCMSEditableForm(): JSX.Element {
-    if(this.context.isInEditMode && this.state.showCMSEditableForm) {
+    const {isUserAuthorized, isInEditMode} = this.context;
+    if(isUserAuthorized && isInEditMode && this.state.showCMSEditableForm) {
       return(
         <div className="pr-cms-editable-form__wrapper">
           <div className="pr-cms-editable-form__bg"
