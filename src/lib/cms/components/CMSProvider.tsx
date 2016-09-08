@@ -4,21 +4,23 @@ import {IRequestResponse, ICmsDataDbModel} from '../models';
 import {updateDraftCmsData} from '../client';
 
 interface ICMSProviderProps {
-  cmsData: ICmsDataDbModel  // CMS data
+  cmsData     : ICmsDataDbModel  // CMS data
+  isInEditMode: boolean          // True if application is being rendered in edit mode
 }
 
 interface ICMSProviderState {
   cmsData: ICmsDataDbModel // CMS data
 }
 
-export class CMSProvider extends React.Component<ICMSProviderState, ICMSProviderState> {
+export class CMSProvider extends React.Component<ICMSProviderProps, ICMSProviderState> {
 
   static childContextTypes = {
     cmsData        : React.PropTypes.object.isRequired,
-    onCmsDataUpdate: React.PropTypes.func.isRequired
+    onCmsDataUpdate: React.PropTypes.func.isRequired,
+    isInEditMode   : React.PropTypes.bool.isRequired
   }
 
-  public constructor(props: ICMSProviderState, context?: any) {
+  public constructor(props: ICMSProviderProps, context?: any) {
     super(props, context);
     this.state = {
       cmsData: this.props.cmsData
@@ -29,7 +31,8 @@ export class CMSProvider extends React.Component<ICMSProviderState, ICMSProvider
   public getChildContext(): any {
     return {
       cmsData        : this.state.cmsData,
-      onCmsDataUpdate: this.handleCmsDataUpdate
+      onCmsDataUpdate: this.handleCmsDataUpdate,
+      isInEditMode   : this.props.isInEditMode
     };
   }
 

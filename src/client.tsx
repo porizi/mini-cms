@@ -2,6 +2,7 @@ import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import {browserHistory, Router} from 'react-router';
 import {CMSProvider} from './lib/cms/components/CMSProvider';
+import {isUserAuthorized} from './utils/auth';
 import routes from './routes/index';
 
 // This method of initialization allows to pass variables from
@@ -11,7 +12,7 @@ window['MINI_CMS_APP'] = window['MINI_CMS_APP'] || (() => {
   return {
     initialize: (config) => {
       ReactDOM.render(
-        <CMSProvider cmsData={config.cmsData}>
+        <CMSProvider cmsData={config.cmsData} isInEditMode={isUserAuthorized()}>
           <Router history={browserHistory}>
             { routes }
           </Router>

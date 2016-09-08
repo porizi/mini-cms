@@ -18,4 +18,5 @@ export interface ICmsContext {
   cmsData: ICmsDataDbModel // CMS data
   onCmsDataUpdate: (data: any, path: string[]) => void // Callback to execute when a particular CMS
                                                        // data needs to be updated
+  isInEditMode: boolean
 }
