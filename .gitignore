@@ -264,3 +264,7 @@ fabric.properties
 
 # Ignore build directory
 /build
+
+### .env file ###
+.env
+

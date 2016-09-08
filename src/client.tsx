@@ -1,12 +1,23 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
-import { browserHistory, Router } from 'react-router';
+import {browserHistory, Router} from 'react-router';
+import {CMSProvider} from './lib/cms/components/CMSProvider';
 import routes from './routes/index';
 
-// Render the application
-ReactDOM.render(
-  <Router history={browserHistory}>
-    { routes }
-  </Router>,
-  document.getElementById('root')
-);
+// This method of initialization allows to pass variables from
+// the server to the client in order to properly initialize
+// external libraries which require special configuration
+window['MINI_CMS_APP'] = window['MINI_CMS_APP'] || (() => {
+  return {
+    initialize: (config) => {
+      ReactDOM.render(
+        <CMSProvider cmsData={config.cmsData}>
+          <Router history={browserHistory}>
+            { routes }
+          </Router>
+        </CMSProvider>,
+        document.getElementById('root')
+      );
+    }
+  };
+})();

@@ -9,12 +9,15 @@
   },
   "author": "Porizi Technologies | Diego Castillo <diegocasmo@gmail.com>",
   "dependencies": {
+    "body-parser": "^1.15.2",
     "bootstrap": "^3.3.6",
     "css-loader": "^0.23.1",
     "ejs": "^2.4.2",
     "express": "^4.14.0",
     "extract-text-webpack-plugin": "^1.0.1",
     "http-proxy-middleware": "^0.16.0",
+    "immutable": "^3.8.1",
+    "mongodb": "^2.2.9",
     "object-assign": "^4.1.0",
     "react": "^15.1.0",
     "react-dom": "^15.1.0",
@@ -27,10 +30,12 @@
     "url-loader": "^0.5.7",
     "webpack": "^1.13.1",
     "webpack-dev-middleware": "^1.6.1",
-    "webpack-dev-server": "^1.14.1"
+    "webpack-dev-server": "^1.14.1",
+    "whatwg-fetch": "^1.0.0"
   },
   "devDependencies": {
     "browser-sync": "^2.13.0",
+    "dotenv": "^2.0.0",
     "file-loader": "^0.9.0",
     "source-map-support": "^0.4.0"
   }
