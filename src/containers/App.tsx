@@ -1,17 +1,17 @@
 import * as React from 'react';
 import {Link} from 'react-router';
 import {CMSNavBar} from '../lib/cms/components/CMSNavBar';
-import {isUserAuthorized} from '../utils/auth';
-import {ICmsContext} from '../models';
+import {IAppContext} from '../models';
 import '../../node_modules/bootstrap/dist/css/bootstrap.css';
 import '../styles.css';
 
 export class App extends React.Component<any,any> {
 
-  context: ICmsContext;
+  context: IAppContext;
 
-  static contextTypes: React.ValidationMap<ICmsContext> = {
-    cmsData: React.PropTypes.object.isRequired
+  static contextTypes: React.ValidationMap<IAppContext> = {
+    cmsData: React.PropTypes.object.isRequired,
+    isInEditMode   : React.PropTypes.bool.isRequired
   }
 
   // Encapsulate CMS context as props for all children
@@ -19,7 +19,7 @@ export class App extends React.Component<any,any> {
   private renderChildrenWithContextAsProps(): JSX.Element[] {
     return React.Children.map(this.props.children, (child: JSX.Element) =>
       React.cloneElement(child, {
-        'cmsData': this.context.cmsData,
+        cmsData: this.context.cmsData
       })
     );
   }
@@ -27,7 +27,7 @@ export class App extends React.Component<any,any> {
   public render(): JSX.Element {
     return (
       <div className="container">
-        <CMSNavBar isUserAuthorized={isUserAuthorized()}/>
+        <CMSNavBar/>
         <Link to="/">Home</Link> | <Link to="/event">Event</Link>
         {this.renderChildrenWithContextAsProps()}
       </div>

@@ -18,6 +18,6 @@ export interface ICmsData extends ICmsDataDbModel {
   event: IEventData
 }
 
-export interface ICmsContext {
+export interface IAppContext extends ICmsContext {
   cmsData: ICmsData
 }

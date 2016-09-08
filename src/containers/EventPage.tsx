@@ -2,7 +2,6 @@ import * as React from 'react';
 import {IChangeEvent} from 'react-jsonschema-form';
 import {CMSEditableForm} from '../lib/cms/components/CMSEditableForm';
 import {ICmsData} from '../models';
-import {isUserAuthorized} from '../utils/auth';
 import {addComponentCSS} from '../utils/css_styler';
 
 addComponentCSS({
@@ -42,8 +41,7 @@ export class EventPage extends React.Component<IEventPageProps, any> {
     return (
       <div className="pr-event-page">
           <span className="pr-event-page__content">
-            <CMSEditableForm isUserAuthorized={isUserAuthorized()}
-                          schema={this.getSchema()}
+            <CMSEditableForm schema={this.getSchema()}
                           formData={cmsData.event}
                           path={['event']}/>
             <p>Title: {cmsData.event.title}</p>

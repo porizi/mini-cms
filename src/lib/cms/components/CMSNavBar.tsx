@@ -1,14 +1,16 @@
 import * as React from 'react';
+import {ICmsContext} from '../models';
 import {publishDraftCmsData} from '../client';
 
-interface ICMSNavBarProps {
-  isUserAuthorized: boolean  // Determine if 'CMSNavBar' should be visible if current user
-                             // is authorized to do so
-}
+export class CMSNavBar extends React.Component<any, any> {
 
-export class CMSNavBar extends React.Component<ICMSNavBarProps, any> {
+  context: ICmsContext;
 
-  public constructor(props: ICMSNavBarProps, context?: any) {
+  static contextTypes: React.ValidationMap<any> = {
+    isInEditMode: React.PropTypes.bool.isRequired
+  }
+
+  public constructor(props?: any, context?: any) {
     super(props, context);
     this.handlePublishChangesClick = this.handlePublishChangesClick.bind(this);
   }
@@ -20,7 +22,7 @@ export class CMSNavBar extends React.Component<ICMSNavBarProps, any> {
   }
 
   private renderCMSNavBar(): JSX.Element {
-    if(this.props.isUserAuthorized) {
+    if(this.context.isInEditMode) {
       return(
         <nav className="navbar navbar-default">
           <div className="container-fluid">

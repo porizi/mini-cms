@@ -44,8 +44,6 @@ addComponentCSS({
 });
 
 interface ICMSEditableFormProps {
-  isUserAuthorized: boolean // Determine if CMS 'CMSEditableForm' should be visible if current user
-                            // is authorized to do so
   schema   : any // Schema to use for the 'react-jsonschema-form' form
   formData?: any // Initial data to use for the form (if any)
   path     : string[] // Path in the cmsData object where the current data should be updated at
@@ -61,7 +59,8 @@ export class CMSEditableForm extends React.Component<ICMSEditableFormProps, ICMS
 
   static contextTypes: React.ValidationMap<any> = {
     cmsData: React.PropTypes.object.isRequired,
-    onCmsDataUpdate: React.PropTypes.func.isRequired
+    onCmsDataUpdate: React.PropTypes.func.isRequired,
+    isInEditMode: React.PropTypes.bool.isRequired
   }
 
   public constructor(props: ICMSEditableFormProps, context?: any) {
@@ -74,14 +73,14 @@ export class CMSEditableForm extends React.Component<ICMSEditableFormProps, ICMS
   }
 
   private handleSubmit(data: IChangeEvent): void {
-    if(this.props.isUserAuthorized) {
+    if(this.context.isInEditMode) {
       this.context.onCmsDataUpdate(data.formData, this.props.path);
       this.toggleShowCMSEditableForm();
     }
   }
 
   private renderEditButton(): JSX.Element {
-    if(this.props.isUserAuthorized) {
+    if(this.context.isInEditMode) {
       return(
         <div className="pr-cms-editable-form__edit-btn-wrapper">
           <button className="btn pr-cms-editable-form__edit-btn" onClick={this.toggleShowCMSEditableForm}>
@@ -93,8 +92,7 @@ export class CMSEditableForm extends React.Component<ICMSEditableFormProps, ICMS
   }
 
   private renderCMSEditableForm(): JSX.Element {
-    const {isUserAuthorized, schema, formData} = this.props;
-    if(isUserAuthorized && this.state.showCMSEditableForm) {
+    if(this.context.isInEditMode && this.state.showCMSEditableForm) {
       return(
         <div className="pr-cms-editable-form__wrapper">
           <div className="pr-cms-editable-form__bg"
@@ -103,7 +101,9 @@ export class CMSEditableForm extends React.Component<ICMSEditableFormProps, ICMS
             <button onClick={this.toggleShowCMSEditableForm} className="btn">
               <i className="fa fa-times"/>
             </button>
-            <Form schema={schema} formData={formData} onSubmit={this.handleSubmit}/>
+            <Form schema={this.props.schema}
+                  formData={this.props.formData}
+                  onSubmit={this.handleSubmit}/>
           </div>
         </div>
       );
