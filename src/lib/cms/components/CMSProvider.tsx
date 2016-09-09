@@ -81,13 +81,13 @@ export class CMSProvider extends React.Component<ICMSProviderProps, ICMSProvider
 
   /**
    * Toggle CMS data preview
-   * @param isInEditMode - True if should show CMS in edit mode
+   * @param shouldShowEditMode - True if should show CMS in edit mode
    */
-  public handleTogglePreviewMode(isInEditMode: boolean): void {
+  public handleTogglePreviewMode(shouldShowEditMode: boolean): void {
     if(this.props.isUserAuthorized) {
       this.setState(
         Immutable.fromJS(this.state)
-          .setIn(['isInEditMode'], isInEditMode)
+          .setIn(['isInEditMode'], shouldShowEditMode)
           .toJS()
       );
     } else {

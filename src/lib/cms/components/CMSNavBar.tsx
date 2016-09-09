@@ -22,7 +22,7 @@ export class CMSNavBar extends React.Component<any, any> {
           <div className="container-fluid">
             <ul className="nav navbar-nav navbar-right">
               <li>{this.renderPreviewModeButton()}</li>
-              <li>{this.renderEditModelButton()}</li>
+              <li>{this.renderEditModeButton()}</li>
               <li>
                  <button onClick={onPublishChanges}
                          className="btn btn-success navbar-btn">
@@ -38,9 +38,10 @@ export class CMSNavBar extends React.Component<any, any> {
 
   private renderPreviewModeButton(): JSX.Element {
     const {isInEditMode, onTogglePreviewMode} = this.context;
+    const shouldShowEditMode: boolean = false;
     if(isInEditMode) {
       return(
-        <button onClick={() => { onTogglePreviewMode(false) }}
+        <button onClick={() => { onTogglePreviewMode(shouldShowEditMode) }}
                className="btn btn-primary navbar-btn">
             Preview mode
         </button>
@@ -48,11 +49,12 @@ export class CMSNavBar extends React.Component<any, any> {
     }
   }
 
-  private renderEditModelButton(): JSX.Element {
+  private renderEditModeButton(): JSX.Element {
     const {isInViewMode, onTogglePreviewMode} = this.context;
+    const shouldShowEditMode: boolean = true;
     if(isInViewMode) {
       return(
-        <button onClick={() => { onTogglePreviewMode(true) }}
+        <button onClick={() => { onTogglePreviewMode(shouldShowEditMode) }}
                className="btn btn-primary navbar-btn">
             Edit mode
         </button>
