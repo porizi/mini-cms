@@ -16,21 +16,21 @@ interface ICMSProviderState {
 export class CMSProvider extends React.Component<ICMSProviderProps, ICMSProviderState> {
 
   static childContextTypes = {
-    cmsData         : React.PropTypes.object.isRequired,
-    isInEditMode    : React.PropTypes.bool.isRequired,
-    isInViewMode    : React.PropTypes.bool.isRequired,
-    isUserAuthorized: React.PropTypes.bool.isRequired,
-    onCmsDataUpdate : React.PropTypes.func.isRequired,
-    onPublishChanges: React.PropTypes.func.isRequired,
-    onTogglePreview : React.PropTypes.func.isRequired
-  }
+    cmsData             : React.PropTypes.object.isRequired,
+    isInEditMode        : React.PropTypes.bool.isRequired,
+    isInViewMode        : React.PropTypes.bool.isRequired,
+    isUserAuthorized    : React.PropTypes.bool.isRequired,
+    onCmsDataUpdate     : React.PropTypes.func.isRequired,
+    onPublishChanges    : React.PropTypes.func.isRequired,
+    onTogglePreviewMode : React.PropTypes.func.isRequired
+  };
 
   public constructor(props: ICMSProviderProps, context?: any) {
     super(props, context);
     this.state = {
       cmsData     : this.props.cmsData,
       isInEditMode: this.props.isUserAuthorized // Set CMS initially in edit mode if user is authorized
-    }
+    };
     this.handleCmsDataUpdate = this.handleCmsDataUpdate.bind(this);
     this.handleTogglePreviewMode = this.handleTogglePreviewMode.bind(this);
     this.handlePublishChanges = this.handlePublishChanges.bind(this);
@@ -38,13 +38,13 @@ export class CMSProvider extends React.Component<ICMSProviderProps, ICMSProvider
 
   public getChildContext(): any {
     return {
-      cmsData         : this.state.cmsData,
-      isInEditMode    : this.state.isInEditMode,
-      isInViewMode    : !this.state.isInEditMode,
-      isUserAuthorized: this.props.isUserAuthorized,
-      onCmsDataUpdate : this.handleCmsDataUpdate,
-      onPublishChanges: this.handlePublishChanges,
-      onTogglePreview : this.handleTogglePreviewMode
+      cmsData             : this.state.cmsData,
+      isInEditMode        : this.state.isInEditMode,
+      isInViewMode        : !this.state.isInEditMode,
+      isUserAuthorized    : this.props.isUserAuthorized,
+      onCmsDataUpdate     : this.handleCmsDataUpdate,
+      onPublishChanges    : this.handlePublishChanges,
+      onTogglePreviewMode : this.handleTogglePreviewMode
     };
   }
 
