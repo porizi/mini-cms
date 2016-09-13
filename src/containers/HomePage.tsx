@@ -1,8 +1,7 @@
 import * as React from 'react';
 import {IChangeEvent} from 'react-jsonschema-form';
 import {CMSEditableForm} from '../lib/cms/components/CMSEditableForm';
-import {ICmsContext} from '../models';
-import {isUserAuthorized} from '../utils/auth';
+import {ICmsData} from '../models';
 import {addComponentCSS} from '../utils/css_styler';
 
 addComponentCSS({
@@ -19,13 +18,11 @@ addComponentCSS({
   `
 });
 
-export class HomePage extends React.Component<any, any> {
+interface IHomePageProps {
+  cmsData: ICmsData
+}
 
-  context: ICmsContext;
-
-  static contextTypes: React.ValidationMap<any> = {
-    cmsData: React.PropTypes.object.isRequired
-  }
+export class HomePage extends React.Component<IHomePageProps, any> {
 
   private getSchema(): any {
     return {
@@ -40,12 +37,11 @@ export class HomePage extends React.Component<any, any> {
   }
 
   public render(): JSX.Element {
-    const {cmsData} = this.context;
+    const {cmsData} = this.props;
     return (
       <div className="pr-home-page">
           <span className="pr-home-page__content">
-            <CMSEditableForm isUserAuthorized={isUserAuthorized()}
-                          schema={this.getSchema()}
+            <CMSEditableForm schema={this.getSchema()}
                           formData={cmsData.home}
                           path={['home']}/>
             <p>Bio: {cmsData.home.bio}</p>

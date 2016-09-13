@@ -13,11 +13,11 @@ interface IEventData {
   location: string
 }
 
-interface ICmsData extends ICmsDataDbModel {
+export interface ICmsData extends ICmsDataDbModel {
   home : IHomeData
   event: IEventData
 }
 
-export interface ICmsContext {
+export interface IAppContext extends ICmsContext {
   cmsData: ICmsData
 }
